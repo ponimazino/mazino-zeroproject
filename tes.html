@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            color: #007BFF;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #apiDataContainer {
+            margin: 20px auto;
+            max-width: 800px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+        .apiItem {
+            border-bottom: 1px solid #ccc;
+            padding: 20px 0;
+            text-align: left;
+        }
+
+        .apiItem:last-child {
+            border-bottom: none;
+        }
+
+        .apiItem h2 {
+            color: #007BFF;
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .apiItem p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fetch API Example</h1>
+    <button onClick="Faktorial()">Hitung Faktorial</button>
+    <button onClick="fetchAPI()">Fetch Data</button>
+    
+    <!-- Tambahkan elemen div untuk menampilkan data dari API -->
+    <div id="apiDataContainer">
+        Data dari API akan ditampilkan di sini.
+    </div>
+
+    <script>
+        function hitungFaktorial(n) {
+            if (n === 0 || n === 1) {
+                return 1;
+            } else {
+                return n * hitungFaktorial(n - 1);
+            }
+        }
+
+        const Faktorial = () => {
+            let hasil = parseInt(prompt("Masukkan angka:"));
+            alert(hitungFaktorial(hasil));
+        }
+
+        function fetchAPI() {
+            fetch('https://jsonplaceholder.typicode.com/todos')
+                .then((response) => response.json())
+                .then((data) => {
+                    // Urutkan data berdasarkan id dari yang terbesar ke terkecil
+                    data.sort((a, b) => b.id - a.id);
+
+                    // Ubah elemen div dengan id 'apiDataContainer' untuk menampilkan data dari API
+                    const apiDataContainer = document.getElementById('apiDataContainer');
+                    apiDataContainer.innerHTML = ''; // Hapus teks default
+
+                    data.forEach((element) => {
+                        // Tambahkan data userId, id, dan title ke dalam elemen div dengan class 'apiItem'
+                        const apiItem = document.createElement('div');
+                        apiItem.className = 'apiItem';
+                        apiItem.innerHTML = `
+                            <h2>User ID: ${element.userId}</h2>
+                            <p>ID: ${element.id}</p>
+                            <p>Title: ${element.title}</p>
+                        `;
+                        apiDataContainer.appendChild(apiItem);
+                    });
+                })
+                .catch((error) => {
+                    console.error('Terjadi kesalahan:', error);
+                });
+        }
+    </script>
+</body>
+</html>

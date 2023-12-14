@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <button onClick = "Faktorial()"> Pegang akkkk 
+    </button> 
+    <button  onClick = "fetchAPI()"> Fetch awiwkok 
+    > 
+    </button> 
+    
+    <script>
+        
+        //
+        function hitungFaktorial(n) {
+            if (n===0 || n ===1){
+                return 1;
+            } else {
+                return n*hitungFaktorial(n-1);
+                
+            } 
+          
+        }
+        const Faktorial = () => {
+        //hitungFaktorial(input);
+        let hasil = parseInt(prompt("Angka = "));
+        alert(hitungFaktorial(hasil));
+        }
+
+        function fetchAPI(){
+            const data = fetch('https://jsonplaceholder.typicode.com/todos')
+            .then((data) => data.json())
+           
+            .then((data) => {
+                data.forEach (element =>{
+                    console.log(element.completed)}
+                )});
+            }
+            //points.sort ((a,b) => a-b   points.sort ((a,b) => a-b)
+           //document.getElementById
+        // ("demo").innerHTML = "Nilai Numeric = "+ points
+        
+    </script>
+</body>
+</html>
